@@ -9,6 +9,12 @@ const userModelSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    username: {
+      type: String,
+      unique: true,
+      lowercase: true,
+      required: true,
+    },
     email: {
       type: String,
       required: true,
@@ -17,6 +23,44 @@ const userModelSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
+    },
+    profilePicture: {
+      type: String,
+      default:
+        "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png",
+      required: false,
+    },
+    headerPicture: {
+      type: String,
+      default:
+        "https://business.twitter.com/content/dam/business-twitter/textured-backgrounds/banner-full-blue-scratch.jpg.twimg.1280.jpg",
+      required: false,
+    },
+    bio: {
+      type: String,
+      default: "",
+      maxLength: 160,
+      required: false,
+    },
+    location: {
+      type: String,
+      default: "",
+      required: false,
+    },
+    follower_count: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+    following_count: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+    frontendTheme: {
+      type: String,
+      enum: ["light", "dark"],
+      default: "light",
     },
   },
   {
