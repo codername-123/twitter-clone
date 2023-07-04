@@ -1,5 +1,11 @@
-import UserModel from "../model/user.model.js";
+import lodash from "lodash";
+import UserModel, { privateFields } from "../model/user.model.js";
 
 export async function createUser(input) {
-  return UserModel.create(input);
+  try {
+    const user = await UserModel.create(input);
+    return lodash.omit(user.toJSON(), privateFields);
+  } catch (e) {
+    throw e;
+  }
 }
