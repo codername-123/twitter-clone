@@ -3,7 +3,7 @@ import argon2 from "argon2";
 import logger from "../utils/winston.js";
 
 export const privateFields = ["password", "__v"];
-const userSchema = new mongoose.Schema(
+const userModelSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -24,17 +24,19 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-userSchema.pre("save", async function (next) {
-  if (this.isModified("password")) {
-    next();
+userModelSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    return next();
   }
 
   const hash = await argon2.hash(this.password);
+
   this.password = hash;
-  next();
+
+  return next();
 });
 
-userSchema.methods.validatePassword = async function (candidatePassword) {
+userModelSchema.methods.validatePassword = async function (candidatePassword) {
   try {
     return await argon2.verify(this.password, candidatePassword);
   } catch (error) {
@@ -44,6 +46,6 @@ userSchema.methods.validatePassword = async function (candidatePassword) {
   }
 };
 
-const UserModel = mongoose.model("users", userSchema);
+const UserModel = mongoose.model("users", userModelSchema);
 
 export default UserModel;
