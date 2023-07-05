@@ -2,7 +2,16 @@ import mongoose from "mongoose";
 import argon2 from "argon2";
 import logger from "../utils/winston.js";
 
-export const privateFields = ["password", "__v"];
+export const privateFields = [
+  "password",
+  "__v",
+  "profilePicture",
+  "headerPicture",
+  "follower_count",
+  "following_count",
+  "frontendTheme",
+];
+
 const userModelSchema = new mongoose.Schema(
   {
     name: {
