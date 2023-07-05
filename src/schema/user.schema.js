@@ -1,4 +1,4 @@
-import { object, string, optional } from "zod";
+import { object, string } from "zod";
 
 export const createUserSchema = object({
   body: object({
@@ -26,5 +26,13 @@ export const createUserSchema = object({
   }).refine((data) => data.password === data.passwordConfirmation, {
     message: "Passwords do not match",
     path: ["passwordConfirmation"],
+  }),
+});
+
+export const getByUsernameSchema = object({
+  params: object({
+    username: string({
+      required_error: "username is required to find the user",
+    }),
   }),
 });
