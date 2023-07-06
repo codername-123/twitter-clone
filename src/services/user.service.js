@@ -48,3 +48,8 @@ export async function findByUsername(username) {
     );
   }
 }
+
+// Todo:
+// deleting a user is very complex because you have to delete all of its tweets | like(decrease like for the post which was liked) | reply |
+// decrement the follower count of the people user followed and decrement following count of the people who followed the user.
+// delete all the images linked to the user
