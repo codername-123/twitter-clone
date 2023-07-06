@@ -5,6 +5,14 @@ export default {
     message: "Requested user does not exist",
     status: StatusCodes.NOT_FOUND,
   },
+  UNABLE_TO_FIND_USER_TO_FOLLOW_ERROR: {
+    message: "User you are trying to follow does not exist",
+    status: StatusCodes.NOT_FOUND,
+  },
+  UNABLE_TO_FIND_USER_TO_UNFOLLOW_ERROR: {
+    message: "User you are trying to unfollow does not exist",
+    status: StatusCodes.NOT_FOUND,
+  },
   UNAUTHORIZED_ERROR: {
     message: "This action is not allowed",
     staus: StatusCodes.FORBIDDEN,
@@ -24,5 +32,16 @@ export default {
   NOT_AUTHENTICATED: {
     message: "Authenticated user is required",
     status: StatusCodes.UNAUTHORIZED,
+  },
+  // Below are dynamic errors whose messages are generated through function
+  ALREADY_FOLLOWS_ERROR: {
+    message: (username, targetUsername) =>
+      `${username} already follows ${targetUsername}`,
+    status: StatusCodes.CONFLICT,
+  },
+  DOES_NOT_FOLLOW_ERROR: {
+    message: (username, targetUsername) =>
+      `${username} doesn't follow ${targetUsername}`,
+    status: StatusCodes.CONFLICT,
   },
 };
