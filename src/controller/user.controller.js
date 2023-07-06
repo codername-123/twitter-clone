@@ -8,7 +8,9 @@ export async function createUserHandler(req, res) {
     const body = req.body;
     const user = await UserService.create(body);
     const response = lodash.omit(user.toJSON(), privateFields);
-    return res.status(StatusCodes.CREATED).json({ user: response });
+    return res
+      .status(StatusCodes.CREATED)
+      .json({ data: response, message: "User successfully created" });
   } catch (error) {
     return res.status(error.statusCode).json({ message: error.message });
   }
@@ -18,7 +20,9 @@ export async function findByUsernameHandler(req, res) {
   const { username } = req.params;
   try {
     const user = await UserService.findByUsername(username);
-    return res.status(StatusCodes.OK).json(user);
+    return res
+      .status(StatusCodes.OK)
+      .json({ data: user, message: "User Found" });
   } catch (error) {
     return res.status(error.statusCode).json({ message: error.message });
   }
