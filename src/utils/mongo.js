@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import environment from "../config/environment.js";
+import environment from "../config/environment.config.js";
 import logger from "./winston.js";
 
 export async function connectMongo() {
