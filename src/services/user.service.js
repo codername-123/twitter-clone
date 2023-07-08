@@ -14,7 +14,6 @@ export async function create(input) {
     const user = await UserModel.create(input);
     return user;
   } catch (error) {
-    console.log(error);
     if (error.code === 11000) {
       throw new WebError(
         DUPLICATE_USER_ERROR.status,
@@ -49,6 +48,26 @@ export async function findByUsername(username) {
   }
 }
 
+export async function findByEmail(email) {
+  try {
+    const user = await UserModel.findOne({ email: email });
+    if (!user) {
+      throw new WebError(
+        USER_DOES_NOT_EXIST_ERROR.status,
+        USER_DOES_NOT_EXIST_ERROR.message
+      );
+    }
+    return lodash.omit(user.toJSON(), privateFields);
+  } catch (error) {
+    if (error instanceof WebError) {
+      throw error;
+    }
+    throw new WebError(
+      SOMETHING_WENT_WRONG_ERROR.status,
+      SOMETHING_WENT_WRONG_ERROR.message
+    );
+  }
+}
 // Todo:
 // deleting a user is very complex because you have to delete all of its tweets | like(decrease like for the post which was liked) | reply |
 // decrement the follower count of the people user followed and decrement following count of the people who followed the user.
