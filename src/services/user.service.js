@@ -1,5 +1,4 @@
-import lodash from "lodash";
-import UserModel, { privateFields } from "../model/user.model.js";
+import UserModel from "../model/user.model.js";
 import WebError from "../errors/web.error.js";
 import errorMessages from "../utils/errorMessages.js";
 
@@ -36,7 +35,7 @@ export async function findByUsername(username) {
         USER_DOES_NOT_EXIST_ERROR.message
       );
     }
-    return lodash.omit(user.toJSON(), privateFields);
+    return user;
   } catch (error) {
     if (error instanceof WebError) {
       throw error;
@@ -57,7 +56,7 @@ export async function findByEmail(email) {
         USER_DOES_NOT_EXIST_ERROR.message
       );
     }
-    return lodash.omit(user.toJSON(), privateFields);
+    return user;
   } catch (error) {
     if (error instanceof WebError) {
       throw error;
