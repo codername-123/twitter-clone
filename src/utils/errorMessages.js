@@ -29,11 +29,23 @@ export default {
     message: "User already exits",
     status: StatusCodes.UNPROCESSABLE_ENTITY,
   },
-  NOT_AUTHENTICATED: {
+  NOT_AUTHENTICATED_ERROR: {
     message: "Authenticated user is required",
     status: StatusCodes.UNAUTHORIZED,
   },
-  // Below are dynamic errors whose messages are generated through function
+  COULD_NOT_REFRESH_TOKEN_ERROR: {
+    message: "Unable to refresh access token",
+    status: StatusCodes.UNAUTHORIZED,
+  },
+  INVALID_SESSION_ERROR: {
+    message: "Invalid Session",
+    status: StatusCodes.UNAUTHORIZED,
+  },
+  INVALID_CREDENTIALS_ERROR: {
+    message: "Invalid credentials",
+    status: StatusCodes.UNAUTHORIZED,
+  },
+  // Below are dynamic errors whose messages are generated through function,
   ALREADY_FOLLOWS_ERROR: {
     message: (username, targetUsername) =>
       `${username} already follows ${targetUsername}`,

@@ -1,5 +1,6 @@
 import express from "express";
 import validateSchema from "../middleware/validateSchema.middleware.js";
+import requireUser from "../middleware/requireUser.js";
 import {
   followUserHandler,
   unfollowUserHandler,
@@ -14,13 +15,19 @@ const router = express.Router();
 /**
  * route: /api/follow
  */
-router.post("/follow", validateSchema(followUserSchema), followUserHandler);
+router.post(
+  "/follow",
+  requireUser,
+  validateSchema(followUserSchema),
+  followUserHandler
+);
 
 /**
  * route: /api/unfollow
  */
 router.post(
   "/unfollow",
+  requireUser,
   validateSchema(unfollowUserSchema),
   unfollowUserHandler
 );

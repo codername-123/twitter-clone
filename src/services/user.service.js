@@ -67,6 +67,27 @@ export async function findByEmail(email) {
     );
   }
 }
+
+export async function findUserById(id) {
+  try {
+    const user = await UserModel.findOne({ _id: id });
+    if (!user) {
+      throw new WebError(
+        USER_DOES_NOT_EXIST_ERROR.status,
+        USER_DOES_NOT_EXIST_ERROR.message
+      );
+    }
+    return user;
+  } catch (error) {
+    if (error instanceof WebError) {
+      throw error;
+    }
+    throw new WebError(
+      SOMETHING_WENT_WRONG_ERROR.status,
+      SOMETHING_WENT_WRONG_ERROR.message
+    );
+  }
+}
 // Todo:
 // deleting a user is very complex because you have to delete all of its tweets | like(decrease like for the post which was liked) | reply |
 // decrement the follower count of the people user followed and decrement following count of the people who followed the user.
